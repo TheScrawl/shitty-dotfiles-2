@@ -1,0 +1,15 @@
+#!/bin/bash
+echo $(pulseaudio-ctl full-status | awk '{print $1;}')%;
+while true; do
+    read -r EVENT
+    echo $(pulseaudio-ctl full-status | awk '{print $1 $2;}') | sed 's/no/%/g; s/yes/% (Muted)/g';
+done < <(pactl subscribe | stdbuf -oL grep change) &
+
+while read button; do
+    case $button in
+        1) pulseaudio-ctl mute ;;
+        3) pavucontrol ;;
+        4) pulseaudio-ctl up ;;
+        5) pulseaudio-ctl down ;;
+    esac
+done

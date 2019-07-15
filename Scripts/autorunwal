@@ -1,0 +1,16 @@
+#!/bin/bash
+
+## Gen Colors Version
+echo "Running wal"
+wal -q --backend colorz -i /home/scrawl/Pictures/Wallpapers/Current -n && echo "Defaulting to ~/Pictures/Wallpapers/Current"
+DISPLAY=:0 feh --bg-fill "$(< "/home/scrawl/.cache/wal/wal")"
+notify-send "Wallpaper changed" "~/Pictures/Wallpapers/Current/"
+wal --preview
+echo "Wal finished"
+
+## Gruvbox Version
+## Must run "wal --theme gruvbox" first
+#wal --theme gruvbox
+#shuf -n 1 -e  ~/Pictures/Wallpapers/Current/* | DISPLAY=:0 xargs feh --bg-fill
+#notify-send "Wallpaper changed" "~/Pictures/Wallpapers/Current/"
+#echo "Wal finished (gruvbox)"

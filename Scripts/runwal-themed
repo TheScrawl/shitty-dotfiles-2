@@ -1,0 +1,15 @@
+#!/bin/bash
+
+## Gen Colors Version
+
+## Gruvbox Version
+## Must run "wal --theme gruvbox" first
+if  [ $# -eq 0 ]
+    then 
+        wal --theme gruvbox
+    else 
+        wal --theme $1
+fi
+shuf -n 1 -e  ~/Pictures/Wallpapers/Current/* | DISPLAY=:0 xargs feh --bg-fill
+notify-send "Wallpaper changed" "~/Pictures/Wallpapers/Current/"
+echo "Wal finished (gruvbox)"
