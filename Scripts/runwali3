@@ -6,10 +6,16 @@ if [ $# -eq 0 ]
 	then # if no args, default to current wallpaper dir
 		wal -q --backend colorz -i /home/scrawl/Pictures/Wallpapers/Current -n && echo "Defaulting to ~/Pictures/Wallpapers/Current"
         feh --bg-fill "$(< "/home/scrawl/.cache/wal/wal")"
-	else # otherwise take arg
-		wal -q --backend colorz -i $1 -n && echo "Setting wallpaper to $1"
-        feh --bg-fill "$(< "/home/scrawl/.cache/wal/wal")"
-        
+        wal --preview
+	else 
+        if [ $1 == "--theme" ]
+        then
+            wal --theme $2
+        else 
+            wal -q --backend colorz -i $1 -n && echo "Setting wallpaper to $1"
+            feh --bg-fill "$(< "/home/scrawl/.cache/wal/wal")"
+            wal --preview
+        fi
 fi
 
 mkdir -p "${HOME}/.config/dunst"
@@ -18,7 +24,5 @@ ln -sf "${HOME}/.cache/wal/dunstrc" "${HOME}/.config/dunst/dunstrc"
 pkill dunst
 dunst &
 
-wal --preview
 notify-send "pywal" "finished successfully"
 echo "Wal finished"
-
